@@ -1,0 +1,18 @@
+.gradle/
+build/
+out/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
+# IntelliJ sandbox (plugin runs)
+intellij-sandbox/
+
+# Local environment overrides
+.env
+.env.local
