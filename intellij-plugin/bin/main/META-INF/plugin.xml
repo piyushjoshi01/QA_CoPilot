@@ -1,0 +1,46 @@
+<idea-plugin>
+    <id>com.qacopilot.intellij</id>
+    <name>QA CoPilot</name>
+    <vendor email="support@example.com" url="https://example.com">QA CoPilot</vendor>
+
+    <description><![CDATA[
+    Scans the opened Spring Boot project, generates API contract JSON, and produces a standalone
+    Cucumber + RestAssured test framework (same engine as the QA_CoPilot CLI).
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="QA CoPilot" displayType="BALLOON" isLogByDefault="true"/>
+        <projectService serviceImplementation="com.qacopilot.intellij.settings.QaCopilotProjectSettings"/>
+        <projectService serviceImplementation="com.qacopilot.intellij.state.QaCopilotLastRunService"/>
+        <toolWindow id="QA CoPilot" secondary="true" anchor="right"
+                    factoryClass="com.qacopilot.intellij.ui.QaCopilotToolWindowFactory"/>
+        <configurationType implementation="com.qacopilot.intellij.run.QaCopilotTestRunConfigurationType"/>
+        <runConfigurationProducer implementation="com.qacopilot.intellij.run.QaCopilotTestRunConfigurationProducer"/>
+        <projectConfigurable
+                parentId="tools"
+                instance="com.qacopilot.intellij.settings.QaCopilotConfigurable"
+                id="qacopilot.settings"
+                displayName="QA CoPilot"/>
+    </extensions>
+
+    <actions>
+        <action id="QaCopilot.GenerateTests"
+                class="com.qacopilot.intellij.actions.GenerateQaTestsAction"
+                text="Generate QA Tests"
+                description="Run QA CoPilot: scan Spring controllers and refresh the test framework output folder">
+            <!-- Classic menu + popups -->
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <!-- Classic main toolbar -->
+            <add-to-group group-id="MainToolBar" anchor="last"/>
+            <!-- New UI main toolbar (2022.3+) — more reliable than MainToolBar alone -->
+            <add-to-group group-id="MainToolbarRight" anchor="last"/>
+            <!-- Project tool window header -->
+            <add-to-group group-id="ProjectViewToolbar" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

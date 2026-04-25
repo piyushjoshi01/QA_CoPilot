@@ -16,3 +16,6 @@ intellij-sandbox/
 # Local environment overrides
 .env
 .env.local
+
+# Demo / local pipeline output
+local-demo-output/
